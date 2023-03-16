@@ -55,7 +55,7 @@ namespace Rocchi_meteo
         public async Task<Rootobject_weather_info> get_weather_info()
         {
             Rootobject_weather_info weather_Info = new Rootobject_weather_info();
-            string url = $"https://api.open-meteo.com/v1/forecast?latitude={ Math.Round(coordinates.results[i].latitude,2).ToString().Replace(',', '.') }&longitude={ Math.Round(coordinates.results[i].longitude,2).ToString().Replace(',', '.') }&hourly=temperature_2m ";
+            string url = $"https://api.open-meteo.com/v1/forecast?latitude={ Math.Round(coordinates.results[i].latitude,2).ToString().Replace(',', '.') }&longitude={ Math.Round(coordinates.results[i].longitude,2).ToString().Replace(',', '.') }&hourly=temperature_2m&current_weather=true ";
             
             HttpResponseMessage response = await client.GetAsync(url);
             MessageBox.Show(response.ToString());
@@ -63,7 +63,11 @@ namespace Rocchi_meteo
             {
 
                 weather_Info = await JsonSerializer.DeserializeAsync<Rootobject_weather_info>(await response.Content.ReadAsStreamAsync());
-                MessageBox.Show(weather_Info.hourly.temperature_2m[1].ToString());
+
+                lbl_c_temperature.Text = weather_Info.current_weather.temperature.ToString();
+                lbl_time.Text = weather_Info.current_weather.time.ToString();
+                lbl_windspeed.Text = weather_Info.current_weather.windspeed.ToString();
+
             }
             return weather_Info;
         }

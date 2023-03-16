@@ -58,3 +58,4 @@ C:\Users\matti\Desktop\tps-progetto-api\Rocchi_meteo\Rocchi_meteo\obj\Debug\Rocc
 C:\Users\matti\Desktop\tps-progetto-api\Rocchi_meteo\Rocchi_meteo\obj\Debug\Rocchi_meteo.csproj.CopyComplete
 C:\Users\matti\Desktop\tps-progetto-api\Rocchi_meteo\Rocchi_meteo\obj\Debug\Rocchi_meteo.exe
 C:\Users\matti\Desktop\tps-progetto-api\Rocchi_meteo\Rocchi_meteo\obj\Debug\Rocchi_meteo.pdb
+C:\Users\matti\Desktop\tps-progetto-api\Rocchi_meteo\Rocchi_meteo\obj\Debug\Rocchi_meteo.csproj.SuggestedBindingRedirects.cache

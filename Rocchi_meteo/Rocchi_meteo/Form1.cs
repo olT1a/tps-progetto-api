@@ -52,25 +52,35 @@ namespace Rocchi_meteo
             HttpResponseMessage response = await client.GetAsync(url);
             if (response.IsSuccessStatusCode)
             {
-                coordinates = await JsonSerializer.DeserializeAsync<Rootobject_coordinates>(await response.Content.ReadAsStreamAsync());
+                    coordinates = await JsonSerializer.DeserializeAsync<Rootobject_coordinates>(await response.Content.ReadAsStreamAsync());
+                    MessageBox.Show(await response.Content.ReadAsStringAsync());
             }
-
             return coordinates;
+
+
 
         }
         public async Task<Rootobject_weather_info> get_weather_info()
         {
-
-            string url = $"https://api.open-meteo.com/v1/forecast?latitude={Math.Round(coordinates.results[i].latitude, 2).ToString().Replace(',', '.')}&longitude={Math.Round(coordinates.results[i].longitude, 2).ToString().Replace(',', '.')}&hourly=temperature_2m&daily=temperature_2m_max,temperature_2m_min&current_weather=true&timezone=Europe%2FBerlin";
-
-            HttpResponseMessage response = await client.GetAsync(url);
-            if (response.IsSuccessStatusCode)
+            if (coordinates.results != null)
             {
-                weather_Info = await JsonSerializer.DeserializeAsync<Rootobject_weather_info>(await response.Content.ReadAsStreamAsync());
-                //set_hours(weather_Info);
-                set_temperature(weather_Info);
+                string url = $"https://api.open-meteo.com/v1/forecast?latitude={Math.Round(coordinates.results[i].latitude, 2).ToString().Replace(',', '.')}&longitude={Math.Round(coordinates.results[i].longitude, 2).ToString().Replace(',', '.')}&hourly=temperature_2m&daily=temperature_2m_max,temperature_2m_min&current_weather=true&timezone=Europe%2FBerlin";
+
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    weather_Info = await JsonSerializer.DeserializeAsync<Rootobject_weather_info>(await response.Content.ReadAsStreamAsync());
+                    set_temperature(weather_Info);
+                   // MessageBox.Show(await response.Content.ReadAsStringAsync());
+                }
+
+                return weather_Info;
             }
-            return weather_Info;
+            else
+            {
+                MessageBox.Show("città non trovata");
+                return null;
+            }
         }
         public void set_temperature(Rootobject_weather_info a)
         {
